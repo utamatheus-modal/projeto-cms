@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Cadastro de Clientes</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+</head>
+
+<body class="">
+    <div ng-app="clienteModule">
+        <div ng-controller="clienteController as ctrl" ng-init="ctrl.init()">
+            <!-- Modal Message -->
+            <!-- <div id="modalMessage" class="modal">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-center">{{ ctrl.modal.title }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="model-body">
+                            <p class="text-center mt-2">{{ ctrl.modal.message }}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            
+            <!-- Modal Confirm -->
+            <div id="modalConfirm" class="modal">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{ ctrl.modalConfirm.title }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="model-body">
+                            <p class="text-center mt-2">{{ ctrl.modalConfirm.message }}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-success" data-dismiss="modal" ng-click="ctrl.modalConfirm.confirm()">Sim</button>
+                            <button class="btn btn-danger" data-dismiss="modal">Não</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal Load -->
+            <div id="modalLoad" class="modal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="loader"></div>
+                </div>
+            </div>
+            
+            <h3 class="text-center mt-4"> Cadastro de Clientes</h3>
+            <br>
+            <div class="container">
+                <form name="formulario">
+                    <div class="row">
+                        <div class="form-group col-md-8 col-sm-12">
+                            <label for="referencia">Referência:</label>
+                            <div class="input-group">
+                                <input id="referencia" type="text" class="form-control" ng-model="ctrl.cliente.objref" required>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-info" ng-disabled="!ctrl.cliente.objref && !ctrl.cliente.cnpj" ng-click="ctrl.pesquisarCliente()">
+                                        Buscar
+                                    </button> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12 col-sm-12">
+                            <label for="nome">Nome:</label>
+                            <input id="nome" type="text" class="form-control" ng-model="ctrl.cliente.nome">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="cnpj_cpf">CNPJ/CPF:</label>
+                            <input id="cnpj_cpf" type="text" class="form-control" ng-model="ctrl.cliente.cnpj">
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="insc_estadual">Insc. Estadual:</label>
+                            <input id="insc_estadual" type="text" class="form-control" ng-model="ctrl.cliente.inscrestadual">                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="telefone">Telefone:</label>
+                            <input id="telefone" type="text" class="form-control" ng-model="ctrl.cliente.telefone">                            
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="contato">Contato:</label>
+                            <input id="contato" type="text" class="form-control" ng-model="ctrl.cliente.contato">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4 col-sm-2">
+                            <label for="objref_municipio">Município:</label>
+                            <input id="objref_municipio" type="text" class="form-control" ng-model="ctrl.cliente.objref_municipio">                            
+                        </div>
+                        <div class="form-group col-md-8 col-sm-10">
+                            <label for="municipio"></label>
+                            <div class="input-group mt-2">
+                                <input id="municipio" type="text" class="form-control" ng-model="ctrl.cliente.nome_municipio" disabled>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-info btn-block" ng-disabled="!ctrl.cliente.objref_municipio" ng-click="ctrl.pesquisarMunicipio()">
+                                        Buscar
+                                    </button>
+                                </div>                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-3 col-sm-6">
+                            <label for="situacao">Situação:</label>
+                            <select id="situacao" class="form-control" ng-model="ctrl.cliente.situacao">
+                                <option disabled selected value="">Selecione</option>
+                                <option value="0">Ativo</option>
+                                <option value="1">Inativo</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-6">
+                            <label for="captacao">Captação:</label>
+                            <select id="captacao" class="form-control" ng-model="ctrl.cliente.captacao">
+                                <option disabled selected value="">Selecione</option>
+                                <option value="0">Não</option>
+                                <option value="1">Sim</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="cep">CEP:</label>
+                            <input id="cep" type="text" class="form-control" ng-model="ctrl.cliente.cep">
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <form>
+                        <fieldset class="border p-2">
+                            <legend class="w-auto fieldSetLegend">Ligação com Nvocc</legend>
+                            <div class="row">
+                                <div class="form-group col-md-4 col-sm-2">
+                                    <label for="objref_nvocc">Nvocc:</label>
+                                    <input id="objref_nvocc" type="text" class="form-control" ng-model="ctrl.cliente.objref_nvocc">                            
+                                </div>
+                                <div class="form-group col-md-8 col-sm-10">
+                                    <label for="nvocc"></label>
+                                    <div class="input-group mt-2">
+                                        <input id="nvocc" type="text" class="form-control" ng-model="ctrl.cliente.nome_nvocc" disabled>
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-outline-info btn-block" ng-disabled="!ctrl.cliente.objref_nvocc" ng-click="ctrl.pesquisarNvocc()">
+                                                Buscar
+                                            </button>
+                                        </div>                                
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+
+                    <form>
+                        <fieldset class="border p-4">
+                            <legend class="w-auto fieldSetLegend" ng-click="ctrl.print()">E-mails Autorizados NVOCC</legend>
+                            <table class="table border table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">E-mail</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="x in ctrl.cliente.lista_email_nvocc">
+                                            <td ng-bind="x.nome"></td>
+                                            <td ng-bind="x.email"></td>
+                                        </tr>
+                                    </tbody>
+                                  </table>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3"></div>
+                                <div class="col-md-3 col-sm-3">
+                                    <button class="btn btn-outline-light btn-block custom-btn-soft" ng-disabled="formulario.$invalid" ng-click="ctrl.inserirEmailNvocc()">
+                                        <i class="fa fa-chevron-up"></i>
+                                        Adicionar
+                                    </button>
+                                </div>
+                                <div class="col-md-3 col-sm-3">
+                                    <button  type="button" class="btn btn-outline-light btn-block custom-btn-soft" ng-click="ctrl.removerEmail()">
+                                        <i class="fa fa-chevron-down"></i>
+                                        Remover
+                                    </button>
+                                </div>
+                                <div class="col-md-3 col-sm-3"></div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <label for="nome_nvocc">Nome:</label>
+                                    <input id="nome_nvocc" type="text" class="form-control" ng-model="ctrl.email.nome">
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <label for="email_nvocc">E-mail:</label>
+                                    <input id="email_nvocc" type="email" class="form-control" ng-model="ctrl.email.email">                            
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                    
+                    <hr>
+                    
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4">
+                            <button class="btn btn-outline-success btn-block" ng-disabled="formulario.$invalid" ng-click="ctrl.inserirCliente()">
+                                Salvar
+                            </button>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <button  type="button" class="btn btn-outline-light custom-btn btn-block" ng-click="ctrl.limparCliente()">
+                                Limpar
+                            </button>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <button type="button" class="btn btn-outline-danger btn-block" ng-disabled="!ctrl.cliente.objref" ng-click="ctrl.openModalConfirm(ctrl.deletarCliente)">
+                                Deletar
+                            </button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="divider"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script src="angular/angular.min.js"></script>
+    <script src="jquery/js/jquery-3.3.1.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    
+    <script src="angularJS/Module/app.js"></script>
+    <script src="angularJS/Services/clienteService.js"></script>
+    <script src="angularJS/Controllers/clienteController.js"></script>
+    
+    <script src="js/init.js"></script>
+</body>
+
+</html>

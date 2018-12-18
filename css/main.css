@@ -1,0 +1,75 @@
+.loader {
+    margin: auto;
+    border: 14px solid #e9e9e9;
+    border-radius: 50%;
+    border-top: 14px solid #a1a1a1;
+    width: 80px;
+    height: 80px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+i {
+    margin-left: -6px;
+    padding-right: 6px;
+    color: rgb(233, 98, 98);
+}
+
+/* Botão Limpar */
+.btn-outline-light.custom-btn {
+	background-color: rgb(255, 255, 255);
+    border-color: rgb(100, 100, 100);
+    color: rgb(100, 100, 100);
+}
+
+.btn-outline-light.custom-btn:hover {
+    background-color: rgb(100, 100, 100);
+    color: white;
+    border-color: rgb(100, 100, 100);
+}
+
+.btn-outline-light:not(:disabled):not(.disabled).active,.btn-outline-light:not(:disabled):not(.disabled):active,.show>.btn-outline-light.dropdown-toggle {
+    color:white;
+    background-color:rgb(100, 100, 100);border-color: rgb(100, 100, 100);
+}
+
+.btn-outline-light:not(:disabled):not(.disabled).active:focus,.btn-outline-light:not(:disabled):not(.disabled):active:focus,.show>.btn-outline-light.dropdown-toggle:focus {
+    box-shadow:0 0 0 .2rem rgba(100, 100, 100, 0.5)
+}
+
+/* Botões de adição e remoção de e-mails autorizados Nvocc */
+.btn-outline-light.custom-btn-soft {
+	background-color: rgb(255, 255, 255);
+    border-color: rgb(124, 214, 226);
+    color: rgb(124, 214, 226);
+}
+
+.btn-outline-light.custom-btn-soft:hover {
+    background-color: rgb(124, 214, 226);
+    color: white;
+    border-color: rgb(124, 214, 226);
+}
+
+.btn-outline-light.custom-btn-soft:not(:disabled):not(.disabled).active,.btn-outline-light.custom-btn-soft:not(:disabled):not(.disabled):active,.show>.btn-outline-light.custom-btn-soft.dropdown-toggle {
+    color:white;
+    background-color:rgb(124, 214, 226);border-color: rgb(124, 214, 226);
+}
+
+.btn-outline-light.custom-btn-soft:not(:disabled):not(.disabled).active:focus,.btn-outline-light.custom-btn-soft:not(:disabled):not(.disabled):active:focus,.show>.btn-outline-light.custom-btn-soft.dropdown-toggle:focus {
+    box-shadow:0 0 0 .2rem rgb(124, 214, 226, 0.5)
+}
+
+.fieldSetLegend {
+    padding: 0 10px;
+}

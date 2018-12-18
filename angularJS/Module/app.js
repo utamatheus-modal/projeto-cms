@@ -1,0 +1,1 @@
+var clienteModule = angular.module('clienteModule', []);
